@@ -1,0 +1,20 @@
+digraph ERD {
+ graph [rankdir=LR, bgcolor="white", pad="0.28", nodesep="0.65", ranksep="1.0", splines=ortho, fontname="Arial", labelloc=t, label="SEN307 — University Course Registration System
+Paul Kelechi | VUG/SEN/24/12934", fontsize=20, fontcolor="#17365D"];
+ node [shape=plain, fontname="Arial"];
+ edge [fontname="Arial", fontsize=10, color="#486581", penwidth=1.5, arrowsize=0.8];
+ Department [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7" COLOR="#17365D"><TR><TD BGCOLOR="#17365D"><FONT COLOR="white"><B>Department</B></FONT></TD></TR><TR><TD ALIGN="LEFT">PK dept_id INT</TD></TR><TR><TD ALIGN="LEFT">dept_name VARCHAR(100) UNIQUE</TD></TR></TABLE> >];
+ Student [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7" COLOR="#17365D"><TR><TD BGCOLOR="#17365D"><FONT COLOR="white"><B>Student</B></FONT></TD></TR><TR><TD ALIGN="LEFT">PK student_id INT AUTO_INCREMENT</TD></TR><TR><TD ALIGN="LEFT">matric_no VARCHAR(20) UNIQUE</TD></TR><TR><TD ALIGN="LEFT">full_name VARCHAR(100)</TD></TR><TR><TD ALIGN="LEFT">FK dept_id INT</TD></TR></TABLE> >];
+ Lecturer [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7" COLOR="#17365D"><TR><TD BGCOLOR="#17365D"><FONT COLOR="white"><B>Lecturer</B></FONT></TD></TR><TR><TD ALIGN="LEFT">PK lecturer_id INT AUTO_INCREMENT</TD></TR><TR><TD ALIGN="LEFT">lecturer_name VARCHAR(100)</TD></TR><TR><TD ALIGN="LEFT">FK dept_id INT</TD></TR></TABLE> >];
+ Course [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7" COLOR="#17365D"><TR><TD BGCOLOR="#17365D"><FONT COLOR="white"><B>Course</B></FONT></TD></TR><TR><TD ALIGN="LEFT">PK course_id INT AUTO_INCREMENT</TD></TR><TR><TD ALIGN="LEFT">course_code VARCHAR(20) UNIQUE</TD></TR><TR><TD ALIGN="LEFT">course_title VARCHAR(150)</TD></TR></TABLE> >];
+ CourseOffering [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7" COLOR="#17365D"><TR><TD BGCOLOR="#17365D"><FONT COLOR="white"><B>CourseOffering</B></FONT></TD></TR><TR><TD ALIGN="LEFT">PK offering_id INT AUTO_INCREMENT</TD></TR><TR><TD ALIGN="LEFT">FK course_id INT</TD></TR><TR><TD ALIGN="LEFT">FK lecturer_id INT</TD></TR><TR><TD ALIGN="LEFT">session VARCHAR(20)</TD></TR><TR><TD ALIGN="LEFT">UNIQUE(course_id, lecturer_id, session)</TD></TR></TABLE> >];
+ Enrolment [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7" COLOR="#17365D"><TR><TD BGCOLOR="#17365D"><FONT COLOR="white"><B>Enrolment</B></FONT></TD></TR><TR><TD ALIGN="LEFT">PK/FK student_id INT</TD></TR><TR><TD ALIGN="LEFT">PK/FK offering_id INT</TD></TR></TABLE> >];
+ Department -> Student [label="1 to many"];
+ Department -> Lecturer [label="1 to many"];
+ Course -> CourseOffering [label="1 to many"];
+ Lecturer -> CourseOffering [label="1 to many"];
+ Student -> Enrolment [label="1 to many"];
+ CourseOffering -> Enrolment [label="1 to many"];
+ {rank=same; Department; Course;}
+ {rank=same; Student; Lecturer; CourseOffering;}
+}
